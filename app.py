@@ -33,6 +33,11 @@ if df.empty:
 
 st.caption(f"Sales from {df['date'].min():%B %Y} to {df['date'].max():%B %Y}")
 
+# --- KPI cards ---
+kpi_sales, kpi_orders = st.columns(2)
+kpi_sales.metric("Total Sales", f"${sales.total_sales(df):,.0f}")
+kpi_orders.metric("Total Orders", f"{sales.total_orders(df):,}")
+
 # --- Sales trend ---
 st.subheader("Sales Trend Over Time")
 
