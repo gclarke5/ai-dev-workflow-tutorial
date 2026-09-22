@@ -29,14 +29,6 @@ Commit:
 
 ## In Progress
 
-### TASK-5: Category and region breakdowns
-Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
-- [ ] Category chart shows all 5 categories sorted highest to lowest, with Electronics on top
-- [ ] Region chart shows North, South, East, and West sorted highest to lowest
-- [ ] Both charts have hover tooltips with exact values
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -71,3 +63,12 @@ Add an interactive Plotly line chart of sales over time (FR-2).
 
 Commit: 24b01cc
 Notes: Claude did the browser check in headless Chrome on port 8502, because a server left over from TASK-3 was still running on 8501. The chart shows 12 points labelled Jan-Dec with axes "Month" and "Sales ($)", and the hover values (e.g. March 2024: $9,603.10) match sums taken straight from the CSV. There were no console errors. The chart's title is the "Sales Trend Over Time" section heading, per the design. 17 tests (the plan's 16, +1 from TASK-2).
+
+### TASK-5: Category and region breakdowns
+Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
+- [x] Category chart shows all 5 categories sorted highest to lowest, with Electronics on top
+- [x] Region chart shows North, South, East, and West sorted highest to lowest
+- [x] Both charts have hover tooltips with exact values
+
+Commit: b95ddc5
+Notes: Claude did the browser check in headless Chrome. Category bars run top to bottom Electronics, Wearables, Audio, Smart Home, Accessories. Region bars run North, West, East, South, which is highest to lowest; the criterion's list only names the regions. Both charts use the same blue, and the hover values (e.g. Electronics: $42,683.67, North: $38,857.24) match the plan's reference values. There were no console errors. 22 tests (the plan's 21, +1 from TASK-2).
