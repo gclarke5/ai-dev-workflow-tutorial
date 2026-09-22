@@ -21,12 +21,19 @@ EXPECTED_COLUMNS = [
     "total_amount",
 ]
 
+# Every row needs a real number in these, or sums would crash or skip rows.
+NUMBER_COLUMNS = ["quantity", "unit_price", "total_amount"]
+
+# Every row needs a label in these, or its sales would vanish from the charts.
+LABEL_COLUMNS = ["category", "region"]
+
 
 def load_sales(path=DATA_PATH):
     """Read the sales CSV and return it as a DataFrame with real dates.
 
     Raises FileNotFoundError if the file does not exist, and ValueError
-    listing any expected columns that are missing.
+    listing any expected columns that are missing, or naming the first data
+    row with a blank or non-numeric number, or a blank category or region.
     """
     path = Path(path)
     if not path.exists():
@@ -37,6 +44,22 @@ def load_sales(path=DATA_PATH):
     missing = [column for column in EXPECTED_COLUMNS if column not in df.columns]
     if missing:
         raise ValueError(f"{path.name} is missing column(s): {', '.join(missing)}")
+
+    for column in NUMBER_COLUMNS:
+        # Text like "$5.00" or a blank cell becomes NaN here.
+        numbers = pd.to_numeric(df[column], errors="coerce")
+        bad_rows = df.index[numbers.isna()]
+        if len(bad_rows) > 0:
+            row = bad_rows[0] + 1  # count data rows from 1, like a person would
+            raise ValueError(f"{path.name} has a blank or non-numeric {column} in data row {row}")
+        df[column] = numbers
+
+    for column in LABEL_COLUMNS:
+        labels = df[column].fillna("").astype(str).str.strip()
+        blank_rows = df.index[labels == ""]
+        if len(blank_rows) > 0:
+            row = blank_rows[0] + 1
+            raise ValueError(f"{path.name} has a blank {column} in data row {row}")
 
     df["date"] = pd.to_datetime(df["date"])
     return df

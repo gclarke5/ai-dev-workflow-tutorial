@@ -71,6 +71,33 @@ def test_load_sales_allows_extra_columns_in_any_order(tmp_path):
     assert len(df) == 1
 
 
+def test_load_sales_rejects_text_in_number_column(tmp_path):
+    text = HEADER + "2024-01-05,ORD-1,Laptop,Electronics,North,1,$500.00,$500.00\n"
+    with pytest.raises(ValueError, match="unit_price"):
+        sales.load_sales(write_csv(tmp_path, text))
+
+
+def test_load_sales_rejects_blank_number(tmp_path):
+    text = HEADER + "2024-01-05,ORD-1,Laptop,Electronics,North,,500.00,500.00\n"
+    with pytest.raises(ValueError, match="quantity"):
+        sales.load_sales(write_csv(tmp_path, text))
+
+
+def test_load_sales_rejects_blank_category(tmp_path):
+    text = HEADER + (
+        "2024-01-05,ORD-1,Laptop,Electronics,North,1,500.00,500.00\n"
+        "2024-01-06,ORD-2,Laptop,,North,1,500.00,500.00\n"
+    )
+    with pytest.raises(ValueError, match="category in data row 2"):
+        sales.load_sales(write_csv(tmp_path, text))
+
+
+def test_load_sales_rejects_blank_region(tmp_path):
+    text = HEADER + "2024-01-05,ORD-1,Laptop,Electronics,  ,1,500.00,500.00\n"
+    with pytest.raises(ValueError, match="region"):
+        sales.load_sales(write_csv(tmp_path, text))
+
+
 def test_data_path_is_absolute_and_exists():
     assert sales.DATA_PATH.is_absolute()
     assert sales.DATA_PATH.exists()
