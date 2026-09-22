@@ -63,3 +63,24 @@ def sales_by_month(df):
     result.columns = ["month", "sales"]
     result["sales"] = result["sales"].round(2)
     return result
+
+
+def _sales_by(df, column):
+    """Return total sales per value of `column`, highest first.
+
+    Shared by sales_by_category and sales_by_region.
+    """
+    grouped = df.groupby(column, as_index=False)["total_amount"].sum()
+    grouped = grouped.rename(columns={"total_amount": "sales"})
+    grouped["sales"] = grouped["sales"].round(2)
+    return grouped.sort_values("sales", ascending=False, ignore_index=True)
+
+
+def sales_by_category(df):
+    """Return total sales per product category, highest first."""
+    return _sales_by(df, "category")
+
+
+def sales_by_region(df):
+    """Return total sales per region, highest first."""
+    return _sales_by(df, "region")

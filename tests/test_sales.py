@@ -150,3 +150,51 @@ def test_sales_by_month_real_file():
     assert len(result) == 12
     assert result["month"].is_monotonic_increasing
     assert result["sales"].sum() == pytest.approx(sales.total_sales(df), abs=0.01)
+
+
+# --- sales_by_category / sales_by_region ------------------------------------
+
+def test_sales_by_category_small_file(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, SMALL_CSV))
+    result = sales.sales_by_category(df)
+    assert list(result.columns) == ["category", "sales"]
+    assert list(result["category"]) == ["Electronics", "Wearables", "Audio", "Accessories"]
+    assert list(result["sales"]) == [1000.00, 200.00, 80.00, 20.00]
+
+
+def test_sales_by_region_small_file(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, SMALL_CSV))
+    result = sales.sales_by_region(df)
+    assert list(result.columns) == ["region", "sales"]
+    assert list(result["region"]) == ["North", "West", "East", "South"]
+    assert list(result["sales"]) == [580.00, 500.00, 200.00, 20.00]
+
+
+def test_sales_by_category_real_file():
+    df = sales.load_sales()
+    result = sales.sales_by_category(df)
+    assert dict(zip(result["category"], result["sales"])) == {
+        "Electronics": 42683.67,
+        "Wearables": 23698.23,
+        "Audio": 19638.44,
+        "Smart Home": 19317.23,
+        "Accessories": 11162.64,
+    }
+    assert result["category"].iloc[0] == "Electronics"
+
+
+def test_sales_by_region_real_file():
+    df = sales.load_sales()
+    result = sales.sales_by_region(df)
+    assert list(result["region"]) == ["North", "West", "East", "South"]
+    assert list(result["sales"]) == [38857.24, 27463.74, 26783.53, 23395.70]
+
+
+def test_breakdowns_are_rounded_to_cents(tmp_path):
+    text = HEADER + (
+        "2024-01-01,ORD-1,Cable,Accessories,North,1,0.10,0.10\n"
+        "2024-01-02,ORD-2,Cable,Accessories,North,1,0.20,0.20\n"
+    )
+    df = sales.load_sales(write_csv(tmp_path, text))
+    assert list(sales.sales_by_category(df)["sales"]) == [0.30]
+    assert list(sales.sales_by_region(df)["sales"]) == [0.30]
