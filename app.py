@@ -10,7 +10,7 @@ import streamlit as st
 
 import sales
 
-BAR_COLOR = "#1f77b4"  # one consistent color for both bar charts
+CHART_COLOR = "#1f77b4"  # one consistent color for every chart
 
 st.set_page_config(page_title="ShopSmart Sales Dashboard", layout="wide")
 
@@ -24,7 +24,7 @@ def get_sales_data():
 def bar_chart(table, label_column):
     """Draw a horizontal bar chart of sales per label, biggest bar on top."""
     fig = px.bar(table, x="sales", y=label_column, orientation="h")
-    fig.update_traces(marker_color=BAR_COLOR, hovertemplate="%{y}: $%{x:,.2f}<extra></extra>")
+    fig.update_traces(marker_color=CHART_COLOR, hovertemplate="%{y}: $%{x:,.2f}<extra></extra>")
     fig.update_xaxes(title="Sales ($)", tickprefix="$", tickformat=",.0f")
     # Plotly draws horizontal bars bottom-up, so "total ascending" puts the biggest on top.
     fig.update_yaxes(title=None, categoryorder="total ascending")
@@ -54,7 +54,7 @@ kpi_orders.metric("Total Orders", f"{sales.total_orders(df):,}")
 # --- Sales trend ---
 st.subheader("Sales Trend Over Time")
 trend = px.line(sales.sales_by_month(df), x="month", y="sales", markers=True)
-trend.update_traces(hovertemplate="%{x|%B %Y}: $%{y:,.2f}<extra></extra>")
+trend.update_traces(line_color=CHART_COLOR, hovertemplate="%{x|%B %Y}: $%{y:,.2f}<extra></extra>")
 trend.update_xaxes(title="Month", tickformat="%b", dtick="M1")
 trend.update_yaxes(title="Sales ($)", tickprefix="$", tickformat=",.0f")
 st.plotly_chart(trend)
