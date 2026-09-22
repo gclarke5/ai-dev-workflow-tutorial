@@ -5,6 +5,7 @@ category and region, all calculated in sales.py from data/sales-data.csv.
 
 Run locally with:  streamlit run app.py
 """
+import plotly.express as px
 import streamlit as st
 
 import sales
@@ -40,6 +41,11 @@ kpi_orders.metric("Total Orders", f"{sales.total_orders(df):,}")
 
 # --- Sales trend ---
 st.subheader("Sales Trend Over Time")
+trend = px.line(sales.sales_by_month(df), x="month", y="sales", markers=True)
+trend.update_traces(hovertemplate="%{x|%B %Y}: $%{y:,.2f}<extra></extra>")
+trend.update_xaxes(title="Month", tickformat="%b", dtick="M1")
+trend.update_yaxes(title="Sales ($)", tickprefix="$", tickformat=",.0f")
+st.plotly_chart(trend)
 
 # --- Breakdowns ---
 left, right = st.columns(2)
