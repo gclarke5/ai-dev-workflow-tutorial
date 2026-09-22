@@ -121,3 +121,32 @@ def test_totals_on_headers_only_file_are_zero(tmp_path):
     df = sales.load_sales(write_csv(tmp_path, HEADER))
     assert sales.total_sales(df) == 0
     assert sales.total_orders(df) == 0
+
+
+# --- sales_by_month ----------------------------------------------------------
+
+def test_sales_by_month_small_file(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, SMALL_CSV))
+    result = sales.sales_by_month(df)
+    assert list(result.columns) == ["month", "sales"]
+    assert list(result["month"].dt.strftime("%Y-%m")) == ["2024-01", "2024-02", "2024-03"]
+    assert list(result["sales"]) == [520.00, 80.00, 700.00]
+
+
+def test_sales_by_month_fills_missing_months_with_zero(tmp_path):
+    text = HEADER + (
+        "2024-01-10,ORD-1,Laptop,Electronics,North,1,500.00,500.00\n"
+        "2024-03-10,ORD-2,Laptop,Electronics,North,1,500.00,500.00\n"
+    )
+    df = sales.load_sales(write_csv(tmp_path, text))
+    result = sales.sales_by_month(df)
+    assert list(result["month"].dt.strftime("%Y-%m")) == ["2024-01", "2024-02", "2024-03"]
+    assert list(result["sales"]) == [500.00, 0.00, 500.00]
+
+
+def test_sales_by_month_real_file():
+    df = sales.load_sales()
+    result = sales.sales_by_month(df)
+    assert len(result) == 12
+    assert result["month"].is_monotonic_increasing
+    assert result["sales"].sum() == pytest.approx(sales.total_sales(df), abs=0.01)

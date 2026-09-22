@@ -50,3 +50,16 @@ def total_sales(df):
 def total_orders(df):
     """Return the number of orders, counting each order_id once."""
     return int(df["order_id"].nunique())
+
+
+def sales_by_month(df):
+    """Return total sales per calendar month, oldest first.
+
+    Columns: month (first day of the month) and sales. Months with no
+    orders are included with 0 so the trend line doesn't skip them.
+    """
+    monthly = df.set_index("date")["total_amount"].resample("MS").sum()
+    result = monthly.reset_index()
+    result.columns = ["month", "sales"]
+    result["sales"] = result["sales"].round(2)
+    return result
