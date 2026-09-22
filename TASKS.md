@@ -12,13 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-3: KPI cards implementation
-Show Total Sales and Total Orders at the top of the dashboard (FR-1).
-- [ ] Total Sales is shown as currency (`$X,XXX,XXX`) and is about $116,500
-- [ ] Total Orders is shown with thousands separators and equals 482
-
-Commit:
-
 ### TASK-4: Sales trend chart
 Add an interactive Plotly line chart of sales over time (FR-2).
 - [ ] Line chart shows sales by month (or day) with time on the X-axis and sales amount on the Y-axis
@@ -50,6 +43,13 @@ Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
 Commit:
 
 ## In Progress
+
+### TASK-3: KPI cards implementation
+Show Total Sales and Total Orders at the top of the dashboard (FR-1).
+- [ ] Total Sales is shown as currency (`$X,XXX,XXX`) and is about $116,500
+- [ ] Total Orders is shown with thousands separators and equals 482
+
+Commit:
 
 ## Done
 
