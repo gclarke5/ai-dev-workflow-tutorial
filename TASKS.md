@@ -54,7 +54,7 @@ Add an interactive Plotly line chart of sales over time (FR-2).
 - [x] Hover tooltips show exact values, and axes and title are clearly labeled
 
 Commit: 24b01cc
-Notes: Claude did the browser check in headless Chrome on port 8502, because a server left over from TASK-3 was still running on 8501. The chart shows 12 points labelled Jan-Dec with axes "Month" and "Sales ($)", and the hover values (e.g. March 2024: $9,603.10) match sums taken straight from the CSV. There were no console errors. The chart's title is the "Sales Trend Over Time" section heading, per the design. 17 tests (the plan's 16, +1 from TASK-2).
+Notes: My pasted instructions named a plan file that doesn't exist (2026-09-08-...), so Claude used 2026-09-22-sales-dashboard.md. Before that, Claude started TASK-4 without being asked when I pasted the tutorial text; I cancelled and nothing had changed. Claude did the browser check in headless Chrome instead of me looking; its first screenshot came out cut off at the top. It tested on port 8502 because a server from TASK-3 was still running on 8501. 17 tests (the plan's 16, +1 from TASK-2).
 
 ### TASK-5: Category and region breakdowns
 Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
@@ -63,7 +63,7 @@ Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
 - [x] Both charts have hover tooltips with exact values
 
 Commit: b95ddc5
-Notes: Claude did the browser check in headless Chrome. Category bars run top to bottom Electronics, Wearables, Audio, Smart Home, Accessories. Region bars run North, West, East, South, which is highest to lowest; the criterion's list only names the regions. Both charts use the same blue, and the hover values (e.g. Electronics: $42,683.67, North: $38,857.24) match the plan's reference values. There were no console errors. 22 tests (the plan's 21, +1 from TASK-2).
+Notes: Clean. Claude did the browser check in headless Chrome instead of me looking. 22 tests (the plan's 21, +1 from TASK-2).
 
 ### TASK-6: Testing and refinement
 Check the dashboard against the PRD's acceptance criteria and polish it for executive use.
@@ -72,4 +72,4 @@ Check the dashboard against the PRD's acceptance criteria and polish it for exec
 - [x] Dashboard loads within 5 seconds and has consistent, professional styling
 
 Commit: 3d0582d
-Notes: Claude checked everything itself: 22 tests pass with warnings treated as errors; the values match a separate recomputation with Python's csv module (482 orders, $116,500.21, every category and region); the page runs in about 0.6s (under 5s); the Streamlit log is clean; there are no console errors. One polish fix: the trend line was Streamlit's default light blue while the bars were #1f77b4, so all three charts now share one color (BAR_COLOR renamed CHART_COLOR). The owner-checklist walkthrough was done by Claude in headless Chrome, not by me in a browser.
+Notes: Claude changed something the plan didn't ask for: the trend line was Streamlit's light blue while the bars were #1f77b4, so it gave all three charts one color (BAR_COLOR renamed CHART_COLOR). Claude walked the owner checklist in headless Chrome instead of me, and kept the server log in its scratchpad instead of ./streamlit.log.
