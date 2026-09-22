@@ -64,8 +64,8 @@ Check the dashboard against the PRD's acceptance criteria and polish it for exec
 - [x] Dashboard runs with no errors or warnings in the terminal or browser
 - [x] Dashboard loads within 5 seconds and has consistent, professional styling
 
-Commit: 3d0582d
-Notes: Claude changed something the plan didn't ask for: the trend line was Streamlit's light blue while the bars were #1f77b4, so it gave all three charts one color (BAR_COLOR renamed CHART_COLOR). Claude walked the owner checklist in headless Chrome instead of me, and kept the server log in its scratchpad instead of ./streamlit.log.
+Commit: dde934e
+Notes: Claude changed something the plan didn't ask for: the trend line was Streamlit's light blue while the bars were #1f77b4, so it gave all three charts one color (BAR_COLOR renamed CHART_COLOR). Claude walked the owner checklist in headless Chrome instead of me, and kept the server log in its scratchpad instead of ./streamlit.log. After TASK-6 was marked done, /code-review on the branch found problems: I chose findings #1 and #2 (non-numeric amounts and blank category/region), fixed in cf70514, and a second pass fixed the page keeping stale data after the CSV changed (dde934e). Two commits went in without a milestone ID: dde934e ("Review fixes") and 639cd1b ("Add project memory (CLAUDE.md)"); both were already on GitHub, so I recorded them here instead of rewriting history.
 
 ### TASK-7: Deployment to Streamlit Community Cloud
 Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
