@@ -10,6 +10,8 @@ import streamlit as st
 
 import sales
 
+BAR_COLOR = "#1f77b4"  # one consistent color for both bar charts
+
 st.set_page_config(page_title="ShopSmart Sales Dashboard", layout="wide")
 
 
@@ -17,6 +19,16 @@ st.set_page_config(page_title="ShopSmart Sales Dashboard", layout="wide")
 def get_sales_data():
     """Load the sales CSV once and reuse it every time the page reruns."""
     return sales.load_sales(sales.DATA_PATH)
+
+
+def bar_chart(table, label_column):
+    """Draw a horizontal bar chart of sales per label, biggest bar on top."""
+    fig = px.bar(table, x="sales", y=label_column, orientation="h")
+    fig.update_traces(marker_color=BAR_COLOR, hovertemplate="%{y}: $%{x:,.2f}<extra></extra>")
+    fig.update_xaxes(title="Sales ($)", tickprefix="$", tickformat=",.0f")
+    # Plotly draws horizontal bars bottom-up, so "total ascending" puts the biggest on top.
+    fig.update_yaxes(title=None, categoryorder="total ascending")
+    return fig
 
 
 st.title("ShopSmart Sales Dashboard")
@@ -51,5 +63,7 @@ st.plotly_chart(trend)
 left, right = st.columns(2)
 with left:
     st.subheader("Sales by Category")
+    st.plotly_chart(bar_chart(sales.sales_by_category(df), "category"))
 with right:
     st.subheader("Sales by Region")
+    st.plotly_chart(bar_chart(sales.sales_by_region(df), "region"))
