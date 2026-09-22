@@ -37,13 +37,6 @@ Commit:
 
 ## In Progress
 
-### TASK-4: Sales trend chart
-Add an interactive Plotly line chart of sales over time (FR-2).
-- [ ] Line chart shows sales by month (or day) with time on the X-axis and sales amount on the Y-axis
-- [ ] Hover tooltips show exact values, and axes and title are clearly labeled
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -70,3 +63,11 @@ Show Total Sales and Total Orders at the top of the dashboard (FR-1).
 
 Commit: 5876df5
 Notes: Claude did the browser check itself in headless Chrome (screenshot showed $116,500 and 482 side by side, no errors) rather than me looking; its first headless screenshot only caught Streamlit's loading skeleton, so it wrote a DevTools driver to wait for the cards. 14 tests instead of the plan's 13, because of the extra TASK-2 test.
+
+### TASK-4: Sales trend chart
+Add an interactive Plotly line chart of sales over time (FR-2).
+- [x] Line chart shows sales by month (or day) with time on the X-axis and sales amount on the Y-axis
+- [x] Hover tooltips show exact values, and axes and title are clearly labeled
+
+Commit: 24b01cc
+Notes: Claude did the browser check in headless Chrome on port 8502, because a server left over from TASK-3 was still running on 8501. The chart shows 12 points labelled Jan-Dec with axes "Month" and "Sales ($)", and the hover values (e.g. March 2024: $9,603.10) match sums taken straight from the CSV. There were no console errors. The chart's title is the "Sales Trend Over Time" section heading, per the design. 17 tests (the plan's 16, +1 from TASK-2).
