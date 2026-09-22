@@ -72,6 +72,6 @@ Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
 - [x] App is deployed on Streamlit Community Cloud and loads from a public shareable URL
 - [x] The deployed app shows the same values as the local version
 
-URL: https://ai-dev-workflow-tutorial-2jn8hwqwd9jbeewmijvhnc.streamlit.app/
+URL: https://sales-dashboard-gavin-clarke.streamlit.app/
 Commit: ef1db46 (deployed from `main`; no code changes in this milestone)
 Notes: I deployed from `main` myself; Claude recorded the URL, checked off the criteria, and added the URL to README.md.
