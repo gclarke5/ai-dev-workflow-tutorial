@@ -59,11 +59,12 @@ Commit:
 
 ## In Progress
 
+## Done
+
 ### TASK-1: Environment setup and project initialization
 Set up the Python environment and project skeleton for the Streamlit app.
-- [ ] `requirements.txt` lists Streamlit, Plotly, and Pandas, and installs cleanly on Python 3.11+
-- [ ] `app.py` exists and `streamlit run app.py` opens a page with the dashboard title
+- [x] `requirements.txt` lists Streamlit, Plotly, and Pandas, and installs cleanly on Python 3.11+
+- [x] `app.py` exists and `streamlit run app.py` opens a page with the dashboard title
 
-Commit:
-
-## Done
+Commit: 9c3e1b8
+Notes: `python3 -m venv` refused to run because the project folder was named `~:Github` (the colon breaks PATH); I renamed it to `~/Github`. Used the plan's commit message ("set up venv, pinned requirements, and app stub") instead of the tutorial's example, since no data loading was in this milestone. Claude committed before I'd confirmed the page in the browser.
