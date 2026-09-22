@@ -44,13 +44,6 @@ Commit:
 
 ## In Progress
 
-### TASK-3: KPI cards implementation
-Show Total Sales and Total Orders at the top of the dashboard (FR-1).
-- [ ] Total Sales is shown as currency (`$X,XXX,XXX`) and is about $116,500
-- [ ] Total Orders is shown with thousands separators and equals 482
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -69,3 +62,11 @@ Load `data/sales-data.csv` with Pandas and set up the dashboard's page layout.
 
 Commit: cb057bc
 Notes: Trend and category/region sections are on the page; the KPI row has no heading of its own and lands in TASK-3, per the design. Claude added a test the plan didn't have (numeric columns, 5 categories, 4 regions) so these criteria are actually checked (7 tests instead of 6). I chose the commit message "set up project and data loading". Claude again committed before I'd confirmed the page in the browser.
+
+### TASK-3: KPI cards implementation
+Show Total Sales and Total Orders at the top of the dashboard (FR-1).
+- [x] Total Sales is shown as currency (`$X,XXX,XXX`) and is about $116,500
+- [x] Total Orders is shown with thousands separators and equals 482
+
+Commit: 5876df5
+Notes: Claude did the browser check itself in headless Chrome (screenshot showed $116,500 and 482 side by side, no errors) rather than me looking; its first headless screenshot only caught Streamlit's loading skeleton, so it wrote a DevTools driver to wait for the cards. 14 tests instead of the plan's 13, because of the extra TASK-2 test.
