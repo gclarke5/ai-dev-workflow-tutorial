@@ -51,14 +51,6 @@ Commit:
 
 ## In Progress
 
-### TASK-2: Data loading and basic structure
-Load `data/sales-data.csv` with Pandas and set up the dashboard's page layout.
-- [ ] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numeric columns
-- [ ] Loaded data has 482 rows, 5 categories, and 4 regions
-- [ ] Page layout has sections for KPIs, trend chart, and category/region charts
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -68,3 +60,12 @@ Set up the Python environment and project skeleton for the Streamlit app.
 
 Commit: 9c3e1b8
 Notes: `python3 -m venv` refused to run because the project folder was named `~:Github` (the colon breaks PATH); I renamed it to `~/Github`. Used the plan's commit message ("set up venv, pinned requirements, and app stub") instead of the tutorial's example, since no data loading was in this milestone. Claude committed before I'd confirmed the page in the browser.
+
+### TASK-2: Data loading and basic structure
+Load `data/sales-data.csv` with Pandas and set up the dashboard's page layout.
+- [x] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numeric columns
+- [x] Loaded data has 482 rows, 5 categories, and 4 regions
+- [x] Page layout has sections for KPIs, trend chart, and category/region charts
+
+Commit: cb057bc
+Notes: Trend and category/region sections are on the page; the KPI row has no heading of its own and lands in TASK-3, per the design. Claude added a test the plan didn't have (numeric columns, 5 categories, 4 regions) so these criteria are actually checked (7 tests instead of 6). I chose the commit message "set up project and data loading". Claude again committed before I'd confirmed the page in the browser.
