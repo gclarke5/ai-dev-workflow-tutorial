@@ -1,0 +1,42 @@
+"""Data loading and calculations for the ShopSmart sales dashboard.
+
+Every number the dashboard shows is calculated here, so it can be tested
+with pytest without starting Streamlit. This module never imports streamlit.
+"""
+from pathlib import Path
+
+import pandas as pd
+
+# Built from this file's location so the app works from any working folder.
+DATA_PATH = Path(__file__).parent / "data" / "sales-data.csv"
+
+EXPECTED_COLUMNS = [
+    "date",
+    "order_id",
+    "product",
+    "category",
+    "region",
+    "quantity",
+    "unit_price",
+    "total_amount",
+]
+
+
+def load_sales(path=DATA_PATH):
+    """Read the sales CSV and return it as a DataFrame with real dates.
+
+    Raises FileNotFoundError if the file does not exist, and ValueError
+    listing any expected columns that are missing.
+    """
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"Sales data file not found: {path}")
+
+    df = pd.read_csv(path)
+
+    missing = [column for column in EXPECTED_COLUMNS if column not in df.columns]
+    if missing:
+        raise ValueError(f"{path.name} is missing column(s): {', '.join(missing)}")
+
+    df["date"] = pd.to_datetime(df["date"])
+    return df
