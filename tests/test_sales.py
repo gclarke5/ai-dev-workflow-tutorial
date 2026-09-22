@@ -74,3 +74,50 @@ def test_load_sales_allows_extra_columns_in_any_order(tmp_path):
 def test_data_path_is_absolute_and_exists():
     assert sales.DATA_PATH.is_absolute()
     assert sales.DATA_PATH.exists()
+
+
+# --- total_sales / total_orders ---------------------------------------------
+
+def test_total_sales_small_file(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, SMALL_CSV))
+    assert sales.total_sales(df) == 1300.00
+
+
+def test_total_sales_real_file():
+    df = sales.load_sales()
+    assert sales.total_sales(df) == pytest.approx(116500.21)
+
+
+def test_total_sales_is_rounded_to_cents(tmp_path):
+    text = HEADER + (
+        "2024-01-01,ORD-1,Cable,Accessories,North,1,0.10,0.10\n"
+        "2024-01-02,ORD-2,Cable,Accessories,North,1,0.20,0.20\n"
+    )
+    df = sales.load_sales(write_csv(tmp_path, text))
+    assert sales.total_sales(df) == 0.30
+
+
+def test_total_orders_small_file(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, SMALL_CSV))
+    assert sales.total_orders(df) == 5
+
+
+def test_total_orders_counts_each_order_id_once(tmp_path):
+    text = HEADER + (
+        "2024-01-01,ORD-1,Laptop,Electronics,North,1,500.00,500.00\n"
+        "2024-01-01,ORD-1,Phone Case,Accessories,North,1,20.00,20.00\n"
+        "2024-01-02,ORD-2,Cable,Accessories,South,1,10.00,10.00\n"
+    )
+    df = sales.load_sales(write_csv(tmp_path, text))
+    assert sales.total_orders(df) == 2
+
+
+def test_total_orders_real_file():
+    df = sales.load_sales()
+    assert sales.total_orders(df) == 482
+
+
+def test_totals_on_headers_only_file_are_zero(tmp_path):
+    df = sales.load_sales(write_csv(tmp_path, HEADER))
+    assert sales.total_sales(df) == 0
+    assert sales.total_orders(df) == 0

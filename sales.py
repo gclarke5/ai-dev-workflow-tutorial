@@ -40,3 +40,13 @@ def load_sales(path=DATA_PATH):
 
     df["date"] = pd.to_datetime(df["date"])
     return df
+
+
+def total_sales(df):
+    """Return total revenue (sum of total_amount), rounded to cents."""
+    return round(float(df["total_amount"].sum()), 2)
+
+
+def total_orders(df):
+    """Return the number of orders, counting each order_id once."""
+    return int(df["order_id"].nunique())
