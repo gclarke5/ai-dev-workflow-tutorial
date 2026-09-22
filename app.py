@@ -16,9 +16,13 @@ st.set_page_config(page_title="ShopSmart Sales Dashboard", layout="wide")
 
 
 @st.cache_data
-def get_sales_data():
-    """Load the sales CSV once and reuse it every time the page reruns."""
-    return sales.load_sales(sales.DATA_PATH)
+def get_sales_data(path, modified_time):
+    """Load the sales CSV once and reuse it until the file changes.
+
+    modified_time isn't used here: it's part of the cache key, so when the
+    CSV is edited (and its modified time changes) the data is loaded again.
+    """
+    return sales.load_sales(path)
 
 
 def bar_chart(table, label_column):
@@ -35,7 +39,12 @@ st.title("ShopSmart Sales Dashboard")
 
 # Show a plain message instead of a traceback if the data can't be loaded.
 try:
-    df = get_sales_data()
+    # A missing file gets no modified time; load_sales then reports it clearly.
+    if sales.DATA_PATH.exists():
+        modified_time = sales.DATA_PATH.stat().st_mtime
+    else:
+        modified_time = None
+    df = get_sales_data(sales.DATA_PATH, modified_time)
 except (FileNotFoundError, ValueError) as error:
     st.error(f"Could not load sales data: {error}")
     st.stop()
