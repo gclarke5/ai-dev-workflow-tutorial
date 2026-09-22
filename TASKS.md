@@ -12,13 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-7: Deployment to Streamlit Community Cloud
-Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
-- [ ] App is deployed on Streamlit Community Cloud and loads from a public shareable URL
-- [ ] The deployed app shows the same values as the local version
-
-Commit:
-
 ## In Progress
 
 ## Done
@@ -73,3 +66,12 @@ Check the dashboard against the PRD's acceptance criteria and polish it for exec
 
 Commit: 3d0582d
 Notes: Claude changed something the plan didn't ask for: the trend line was Streamlit's light blue while the bars were #1f77b4, so it gave all three charts one color (BAR_COLOR renamed CHART_COLOR). Claude walked the owner checklist in headless Chrome instead of me, and kept the server log in its scratchpad instead of ./streamlit.log.
+
+### TASK-7: Deployment to Streamlit Community Cloud
+Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
+- [x] App is deployed on Streamlit Community Cloud and loads from a public shareable URL
+- [x] The deployed app shows the same values as the local version
+
+URL: https://ai-dev-workflow-tutorial-2jn8hwqwd9jbeewmijvhnc.streamlit.app/
+Commit: ef1db46 (deployed from `main`; no code changes in this milestone)
+Notes: I deployed from `main` myself; Claude recorded the URL, checked off the criteria, and added the URL to README.md.
