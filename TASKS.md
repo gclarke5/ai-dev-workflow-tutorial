@@ -12,13 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-1: Environment setup and project initialization
-Set up the Python environment and project skeleton for the Streamlit app.
-- [ ] `requirements.txt` lists Streamlit, Plotly, and Pandas, and installs cleanly on Python 3.11+
-- [ ] `app.py` exists and `streamlit run app.py` opens a page with the dashboard title
-
-Commit:
-
 ### TASK-2: Data loading and basic structure
 Load `data/sales-data.csv` with Pandas and set up the dashboard's page layout.
 - [ ] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numeric columns
@@ -65,5 +58,12 @@ Deploy the dashboard so stakeholders can view it at a public URL (NFR-5).
 Commit:
 
 ## In Progress
+
+### TASK-1: Environment setup and project initialization
+Set up the Python environment and project skeleton for the Streamlit app.
+- [ ] `requirements.txt` lists Streamlit, Plotly, and Pandas, and installs cleanly on Python 3.11+
+- [ ] `app.py` exists and `streamlit run app.py` opens a page with the dashboard title
+
+Commit:
 
 ## Done
